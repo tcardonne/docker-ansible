@@ -1,0 +1,20 @@
+.PHONY: help
+help: ## This help.
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+.DEFAULT_GOAL := help
+
+PWD = $(shell pwd)
+
+build: ## Builds local image
+	docker build -t tcardonne/ansible:local .
+
+local-run: ## Start local image
+	docker run -it --rm tcardonne/ansible:local sh
+
+release: ## Builds Docker images and pushes it to repository
+	docker build -t tcardonne/ansible:latest -t tcardonne/ansible:${TAG} .
+	docker push tcardonne/front-app:${TAG}
+	docker push tcardonne/front-app:latest
+	@echo "-----------------------------------"
+	@echo "built with tags : latest, ${TAG}"
