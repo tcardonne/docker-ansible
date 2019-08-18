@@ -1,4 +1,4 @@
-FROM willhallonline/ansible:2.8-alpine
+FROM willhallonline/ansible:2.7-alpine
 
 WORKDIR /ansible
 
