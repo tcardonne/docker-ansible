@@ -6,7 +6,7 @@ help: ## This help.
 
 PWD = $(shell pwd)
 
-build: ## Builds local image
+build-local: ## Builds local image
 	docker build -t tcardonne/ansible:local .
 
 local-run: ## Start local image
